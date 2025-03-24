@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-7">
+      <ul class="list-unstyled">
+        <div class="card" *ngFor="let tweet of tweets" (click)="onClick(tweet)">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0" (click)="onUsernameClick(tweet)">{{tweet.user.username}}</h5>
+              <small class="text-muted">{{tweet.createdAt | date:'medium'}}</small>
+            </div>
+            <p class="card-text">{{tweet.content}}</p>
+            <div class="d-flex justify-content-start">
+              <div class="me-3">
+                <i class="bi bi-heart"></i> 
+                <small>{{tweet.likeCount}} likes</small>
+              </div>
+              <div>
+                <i class="bi bi-chat"></i> 
+                <small>{{tweet.replyCount}} replies</small>
+              </div>
+            </div>
+            <div *ngIf="tweet.parentTweetId" class="mt-2">
+              <small class="text-muted"><i class="bi bi-arrow-return-right"></i> Reply to tweet #{{tweet.parentTweetId}}</small>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
