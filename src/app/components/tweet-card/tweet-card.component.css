@@ -1,0 +1,10 @@
+.card:hover {
+  filter: brightness(0.9); /* Reduces brightness to 90% */
+  cursor: pointer;
+}
+
+.nav-link:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+

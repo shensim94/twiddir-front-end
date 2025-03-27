@@ -1,2 +1,2 @@
 <app-user-profile [user]="user"></app-user-profile>
-<app-tweet-list [tweets]="userTweets"></app-tweet-list>
+<app-tweet-list [tweets]="userTweets" [loadTweets]="loadUserTweets.bind(this)"></app-tweet-list>

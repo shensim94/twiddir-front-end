@@ -1,57 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import { TweetListComponent } from '../../components/tweet-list/tweet-list.component';
-import { TweetService } from '../../services/tweet.service';
-import { IUser } from '../../models/user.model';
-import { Pageable } from '../../models/pageable.model';
 import { ITweet } from '../../models/tweet.model';
+import { Pageable } from '../../models/pageable.model';
+import { TweetService } from '../../services/tweet.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { UserProfileComponent } from '../../components/user-profile/user-profile.component';
+import { TweetProfileComponent } from '../../components/tweet-profile/tweet-profile.component';
+import { TweetListComponent } from '../../components/tweet-list/tweet-list.component';
 
 @Component({
-  selector: 'app-user-page',
-  imports: [CommonModule, TweetListComponent, UserProfileComponent],
-  templateUrl: './user-page.component.html',
-  styleUrl: './user-page.component.css'
+  selector: 'app-tweet-page',
+  imports: [CommonModule, TweetProfileComponent, TweetListComponent],
+  templateUrl: './tweet-page.component.html',
+  styleUrl: './tweet-page.component.css'
 })
-export class UserPageComponent implements OnInit{
-  userTweets: ITweet[] = [];
-  username: any;
-  user?: IUser;
+export class TweetPageComponent implements OnInit{
+  replyTweets: ITweet[] = [];
+  parentTweetId: any;
+  parentTweet?: ITweet;
   size: number = 10;
   lastId: number | undefined;
   isLoading: boolean = false;
   hasMoreTweets: boolean = true;
 
-
   constructor(private tweetService: TweetService, private activeRoute: ActivatedRoute) {
-    this.username = this.activeRoute.snapshot.paramMap.get('username');
+    this.parentTweetId = this.activeRoute.snapshot.paramMap.get('tweetId');
   }
-
   ngOnInit(): void {
-    this.loadUserProfile();
+    this.loadParentTweet();
   }
 
-  loadUserProfile(): void{
-    this.tweetService.getUserProfile(this.username).subscribe((data: IUser)=>{
-      this.user = data;
+  loadParentTweet() {
+    this.tweetService.getTweetById(this.parentTweetId).subscribe((data: ITweet) => {
+      this.parentTweet = data;
     })
   }
 
-  loadUserTweets(): void {
+  loadReplyTweets(): void {
     if (!this.hasMoreTweets || this.isLoading) {
       return;
     }
     console.log('MAKING DATABASE CALL');
     this.isLoading = true;
-    this.tweetService.getTweetsFromUser(this.username, this.size, this.lastId).subscribe({
+    this.tweetService.getRepliesFromTweet(this.parentTweetId, this.size, this.lastId).subscribe({
       next: (data: Pageable<ITweet>) => {
         // If we received fewer items than requested, we've reached the end
         if (data.content.length < this.size) {
           this.hasMoreTweets = false;
         }
 
-        this.userTweets = [...this.userTweets, ...data.content];
+        this.replyTweets = [...this.replyTweets, ...data.content];
         
         // Update lastId to the smallest ID in the current set
         if (data.content.length > 0) {
@@ -68,5 +65,4 @@ export class UserPageComponent implements OnInit{
       }
     });
   }
-
 }

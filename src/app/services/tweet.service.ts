@@ -10,9 +10,9 @@ import { IUser } from '../models/user.model';
   providedIn: 'root'
 })
 export class TweetService {
+  
   private allTweetsUrl: string = `${environment.baseUrl}/all`;
-  private defaultPageNumber: number = 0;
-  private defaultPageSize: number = 20;
+  private defaultPageSize: number = 10;
   constructor(private httpClient: HttpClient) { }
 
   getUserProfile(
@@ -26,48 +26,70 @@ export class TweetService {
   }
 
   getAllTweets(
-    page: number = this.defaultPageNumber,
-    size: number = this.defaultPageSize
+    size: number = this.defaultPageSize,
+    lastId?: number
   ): Observable<Pageable<ITweet>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
+    let params = new HttpParams()
+      .set('size', size.toString());
+    if (lastId !== undefined) {
+      params = params.set('lastId', lastId.toString());
+    }
     return this.httpClient.get<Pageable<ITweet>>(this.allTweetsUrl, { headers, params });
+  }
+
+  getTweetById(id: number): Observable<ITweet> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.get<ITweet>(`${environment.baseUrl}/all/${id}`, {headers});
   }
 
 
   getTweetsFromUser(
     username: string,
-    page: number = this.defaultPageNumber,
-    size: number = this.defaultPageSize
+    size: number = this.defaultPageSize,
+    lastId?: number
   ): Observable<Pageable<ITweet>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
+    let params = new HttpParams()
+      .set('size', size.toString());
+    if (lastId !== undefined) {
+      params = params.set('lastId', lastId.toString());
+    }
     return this.httpClient.get<Pageable<ITweet>>(`${environment.baseUrl}/${username}`, { headers, params });
   }
 
   getRepliesFromTweet(
     id: number,
-    page: number = 0,
-    size: number = 10
+    size: number = this.defaultPageSize,
+    lastId?: number
   ): Observable<Pageable<ITweet>> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
+    let params = new HttpParams()
+      .set('size', size.toString());
+    if (lastId !== undefined) {
+      params = params.set('lastId', lastId.toString());
+    }
     return this.httpClient.get<Pageable<ITweet>>(`${environment.baseUrl}/all/${id}/replies`, { headers, params });
+  }
+
+  postTweet(){
+
+  }
+
+  replyToTweet(){
+
   }
 
 }
