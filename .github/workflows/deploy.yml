@@ -57,10 +57,14 @@ jobs:
             # Stop and remove the current container if it exists
             docker stop angular-app || true
             docker rm angular-app || true
+
+            # Create a network if it doesn't exist
+            docker network create app-network || true
             
             # Run the new container
             docker run -d \
               --name angular-app \
+              --network app-network \
               --restart unless-stopped \
               -p 4200:80 \
               -e NODE_ENV=production \
