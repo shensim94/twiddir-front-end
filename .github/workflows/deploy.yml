@@ -66,7 +66,7 @@ jobs:
               --name angular-app \
               --network app-network \
               --restart unless-stopped \
-              -p 4200:80 \
+              -p 80:80 \
               -e NODE_ENV=production \
               ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO }}:latest
             
