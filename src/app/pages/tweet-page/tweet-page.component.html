@@ -1,1 +1,23 @@
-<p>tweet-page works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-lg-3 col-xl-2 d-none d-lg-block">
+      <app-navbar></app-navbar>
+    </div>
+    
+    <!-- Main Content Column -->
+    <div class="col-12 col-lg-9 col-xl-6">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10" style="min-width: 300px;">
+          <app-tweet-profile [tweet]="parentTweet"></app-tweet-profile>
+          <app-reply-box [parentTweetId]="parentTweetId"></app-reply-box>
+          <app-tweet-list [tweets]="replyTweets" [loadTweets]="loadReplyTweets.bind(this)"></app-tweet-list>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Optional: Right sidebar-->
+    <div class="col-xl-4 d-none d-xl-block">
+    </div>
+  </div>
+</div>

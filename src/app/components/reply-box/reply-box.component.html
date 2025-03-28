@@ -1,1 +1,27 @@
-<p>reply-box works!</p>
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex align-items-start">
+      <!-- User avatar placeholder -->
+      <div class="rounded-circle bg-secondary me-2" style="width: 40px; height: 40px; min-width: 40px;"></div>
+      
+      <div class="flex-grow-1">
+        <textarea
+          class="form-control mb-2"
+          rows="2"
+          placeholder="Write your reply..."
+          [(ngModel)]="replyContent"
+        ></textarea>
+        
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">{{280 - replyContent.length}} characters left</small>
+          <button 
+            class="btn btn-primary" 
+            [disabled]="!replyContent.trim() || replyContent.length > 280"
+            (click)="onClickPost()">
+            Reply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

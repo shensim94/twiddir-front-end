@@ -11,6 +11,6 @@ export const routes: Routes = [
   {path:'home', component: HomePageComponent, canActivate: [authGuard]},
   {path:'login', component: LoginPageComponent},
   {path: 'register', component: RegisterPageComponent},
-  {path: ':username', component: UserPageComponent},
-  {path: ':username/status/:tweetId', component: TweetPageComponent}
+  {path: ':username', component: UserPageComponent, canActivate: [authGuard]},
+  {path: ':username/status/:tweetId', component: TweetPageComponent, canActivate: [authGuard]}
 ];

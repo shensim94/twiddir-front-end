@@ -1,0 +1,46 @@
+<div class="position-sticky" style="top: 0; height: 100vh;">
+  <div class="sidebar">
+    <div class="logo-container mb-4">
+      <a href="/" class="text-decoration-none">
+        <h2 class="fw-bold text-primary">Twiddir</h2>
+      </a>
+    </div>
+    
+    <nav class="nav flex-column mb-4">
+      <a class="nav-link d-flex align-items-center mb-3 active" routerLink="/">
+        <i class="bi bi-house-door-fill me-3 fs-5"></i>
+        <span class="fw-medium">Home</span>
+      </a>
+      <a class="nav-link d-flex align-items-center mb-3" href="/explore">
+        <i class="bi bi-hash me-3 fs-5"></i>
+        <span class="fw-medium">Explore</span>
+      </a>
+      <a class="nav-link d-flex align-items-center mb-3" href="/notifications">
+        <i class="bi bi-bell me-3 fs-5"></i>
+        <span class="fw-medium">Notifications</span>
+      </a>
+      <a class="nav-link d-flex align-items-center mb-3" href="/messages">
+        <i class="bi bi-envelope me-3 fs-5"></i>
+        <span class="fw-medium">Messages</span>
+      </a>
+      <a class="nav-link d-flex align-items-center mb-3" href="/bookmarks">
+        <i class="bi bi-bookmark me-3 fs-5"></i>
+        <span class="fw-medium">Bookmarks</span>
+      </a>
+      <a class="nav-link d-flex align-items-center mb-3" routerLink="/{{username}}">
+        <i class="bi bi-person me-3 fs-5"></i>
+        <span class="fw-medium">Profile</span>
+      </a>
+    </nav>
+    
+    <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+    
+    <div class="user-profile mt-auto d-flex align-items-center">
+      <img class="rounded-circle me-2">
+      <div class="user-info">
+        <div class="fw-bold">{{username}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>

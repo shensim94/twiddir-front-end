@@ -36,14 +36,14 @@ export class RegisterPageComponent {
   }
 
   onSubmitHandler() {
-    console.log(this.registrationForm.value);
+    
     this.authService.onRegister(this.registrationForm.value).subscribe(
       (data: any) => {
-        console.log(data);
+        
         this.router.navigateByUrl('/login');
       },
       (error) => {
-        console.log(error);
+        
         this.responseText = error.error.message;
         this.alertClass = 'alert alert-danger';
       }

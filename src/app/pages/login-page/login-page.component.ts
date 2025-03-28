@@ -31,10 +31,10 @@ export class LoginPageComponent {
   }
 
   onSubmitHandler() {
-    console.log(this.loginForm.value);
+    
     this.authService.onLogin(this.loginForm.value).subscribe(
       (data: any) => {
-        console.log(data['access_token'])
+        
         localStorage.setItem('token', data['access_token'])
 
         this.router.navigateByUrl('/');

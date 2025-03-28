@@ -1,7 +1,7 @@
-<div class="card">
+<div class="card" (click)="onCardClick()">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-2">
-      <a class="nav-link" routerLink="/{{tweet.user.username}}">
+      <a class="nav-link" [routerLink]="['/', tweet.user.username]" (click)="$event.stopPropagation()">
         <h5 class="card-title mb-0">{{tweet.user.username}}</h5>
       </a>
       <small class="text-muted">{{tweet.createdAt | date:'medium'}}</small>
@@ -17,10 +17,10 @@
         <small>{{tweet.replyCount}} replies</small>
       </div>
     </div>
-    <div *ngIf="tweet.parentTweetId" class="mt-2">
-      <a class="nav-link" routerLink="/{{tweet.user.username}}/status/{{tweet.id}}">
+    <div *ngIf="tweet.parentTweetId && !isOnTweetPage && parentUsername" class="mt-2">
+      <a class="nav-link" [routerLink]="['/', parentUsername, 'status', tweet.parentTweetId]" (click)="$event.stopPropagation()">
         <small class="text-muted"><i class="bi bi-arrow-return-right"></i>
-          tweet #{{tweet.parentTweetId}}
+          reply to &#64;{{ parentUsername }}'s tweet
         </small>
       </a>
     </div>

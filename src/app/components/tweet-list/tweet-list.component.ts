@@ -74,10 +74,10 @@ export class TweetListComponent implements OnInit, AfterViewInit, OnDestroy {
       rect.bottom >= 0 &&
       rect.bottom <= windowHeight
     );
-    console.log('hello check initial visibility');
-    console.log(isVisible)
-    console.log(this.tweets?.length)
-    console.log(this.hasLoadedInitial)
+    
+    
+    
+    
     if (isVisible && this.tweets?.length && this.hasLoadedInitial) {
       this.loadTweets();
     }
