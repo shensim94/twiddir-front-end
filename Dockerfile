@@ -8,7 +8,8 @@ RUN npm run build -- --configuration production
 
 # Production stage
 FROM nginx:alpine
-COPY --from=build /app/dist/my-twitter-frontend /usr/share/nginx/html
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=build /app/dist/my-twitter-frontend/ /usr/share/nginx/html
 # Optional: Copy custom nginx configuration if needed
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
